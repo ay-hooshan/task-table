@@ -1,22 +1,55 @@
 import QtQuick
+import QtQuick.Controls 2.15
 
 TableView {
-    anchors.fill: parent
-    model: mymodel
-    rowSpacing: 2
-    columnSpacing: 2
-    delegate: Rectangle {
-        implicitWidth: 200
-        implicitHeight: 50
-        border.color: "black"
-        border.width: 2
+    id: tableView
 
-        Text {
-            id: delegateText
-            text: model.display
-            anchors.centerIn: parent
-            font.family: "cmu concrete"
-            font.pixelSize: 20
+    property double spaceBetweenRows: 2
+    property double spaceBetweenColumns: 2
+
+    property double delegateWidth: 200
+    property double delegateHeight: 50
+
+    property double delegateBorderWidth: 2
+
+    anchors.fill: parent
+    anchors.topMargin: delegateHeight + spaceBetweenRows
+
+    model: mymodel
+
+    rowSpacing: spaceBetweenRows
+    columnSpacing: spaceBetweenColumns
+
+//    resizableColumns: true
+
+    delegate: Rectangle {
+        id: tableDelegate
+        implicitWidth: delegateWidth
+        implicitHeight: delegateHeight
+        border.color: "black"
+        border.width: delegateBorderWidth
+
+        AyText { text: model.display }
+    }
+
+    Row {
+        id: columnsHeader
+        y: tableView.contentY - (delegateHeight + spaceBetweenRows)
+        z: 2
+        spacing: spaceBetweenColumns
+        Repeater {
+            model: tableView.columns > 0 ? tableView.columns : 1
+            Rectangle {
+                width: delegateWidth
+                height: delegateHeight
+                border.color: "blue"
+                border.width: delegateBorderWidth
+
+                AyText {
+                    text: mymodel.headerData(model.index, Qt.Horizontal)
+                    font.bold: true
+                }
+            }
         }
     }
 }

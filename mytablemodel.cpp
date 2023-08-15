@@ -1,9 +1,10 @@
 #include "mytablemodel.h"
 
+const QVector<QString> columnNames = {"ID", "Name", "Family", "Address"};
+
 MyTableModel::MyTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    m_tableData.append({"ID", "Name", "Family", "Address"});
     m_tableData.append({"0", "Ali", "Alavi", "Tehran Shahid Beheshti Street"});
     m_tableData.append({"1", "Naghi", "Mamooli", "Tehran Shahid Beheshti Street"});
     m_tableData.append({"2", "Taghi", "Mamooli", "Tehran Shahid Beheshti Street"});
@@ -21,7 +22,14 @@ MyTableModel::MyTableModel(QObject *parent)
 
 QVariant MyTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    switch (role) {
+    case Qt::DisplayRole:
+        return columnNames.at(section);
+    default:
+        break;
+    }
 
+    return QVariant("Default Data");
 }
 
 int MyTableModel::rowCount(const QModelIndex &parent) const

@@ -18,6 +18,7 @@ qt_add_qml_module(appMyTable
     QML_FILES Main.qml
     QML_FILES MyTableView.qml
     SOURCES mytablemodel.h mytablemodel.cpp
+    QML_FILES AyText.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
