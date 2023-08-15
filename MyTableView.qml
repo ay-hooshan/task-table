@@ -40,12 +40,18 @@ TableView {
         MouseArea {
             anchors.fill: parent
 
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+
             AyText {
                 text: model.display
             }
 
-            onClicked: () => {
-                console.log(model.index)
+            onClicked: (mouse) => {
+                           console.log(model.index)
+
+                           if (mouse.button === Qt.RightButton) {
+                                console.log("right click!")
+                           }
             }
         }
     }
