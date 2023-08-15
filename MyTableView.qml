@@ -24,12 +24,30 @@ TableView {
 
     delegate: Rectangle {
         id: tableDelegate
+
         implicitWidth: delegateWidth
         implicitHeight: delegateHeight
+
         border.color: "black"
         border.width: delegateBorderWidth
 
-        AyText { text: model.display }
+        color: stylus.hovered ? "grey" : "white"
+
+        HoverHandler {
+            id: stylus
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            AyText {
+                text: model.display
+            }
+
+            onClicked: () => {
+                console.log(model.index)
+            }
+        }
     }
 
     Row {
