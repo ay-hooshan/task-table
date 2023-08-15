@@ -47,11 +47,26 @@ TableView {
             }
 
             onClicked: (mouse) => {
-                           console.log(model.index)
+                console.log("index " + model.index + " clicked!")
+//                console.log(mouse.button)
+                if (mouse.button === Qt.RightButton) {
+//                    console.log("right click!")
+                    contextMenu.popup()
+                }
+            }
 
-                           if (mouse.button === Qt.RightButton) {
-                                console.log("right click!")
-                           }
+            Menu {
+                id: contextMenu
+                MenuItem {
+                    text: "Delete"
+                    onTriggered: () => {
+//                        console.log("delete trigger on index " + model.index)
+                        let rowIndex = model.index % tableView.rows
+                        mymodel.myRemoveRow(rowIndex)
+                    }
+                }
+//                MenuItem { text: "Copy" }
+//                MenuItem { text: "Paste" }
             }
         }
     }
@@ -61,6 +76,7 @@ TableView {
         y: tableView.contentY - (delegateHeight + spaceBetweenRows)
         z: 2
         spacing: spaceBetweenColumns
+
         Repeater {
             model: tableView.columns > 0 ? tableView.columns : 1
             Rectangle {
@@ -77,32 +93,33 @@ TableView {
         }
     }
 
-        Rectangle {
-            id: rect
+    Rectangle {
+        id: rect
 
-            property double dragLimit: delegateWidth
+        property double dragLimit: delegateWidth
 
-            width: 5; height: delegateHeight
-            z: 3
-            color: "grey"
+        width: 5; height: delegateHeight
+        z: 3
+        color: "grey"
 //            x: myHeaders.width
-            x: 800 + 2
-            anchors.verticalCenter: myHeaders.verticalCenter
+        x: 800 + 2
+        anchors.verticalCenter: myHeaders.verticalCenter
 
-            MouseArea {
-                anchors.fill: parent
-                smooth: true
-                drag.target: rect
-                drag.axis: Drag.XAxis
-                drag.minimumX: 800 - parent.dragLimit
-                drag.maximumX: 800 + parent.dragLimit
+        MouseArea {
+            anchors.fill: parent
+            smooth: true
 
-                onMouseXChanged: () => {
-//                                     console.log(rect.x)
-                                     tableView.setColumnWidth(3, delegateWidth + (rect.x - 800))
-                                     myHeaders.children[3].width = delegateWidth + (rect.x - 800)
-                                 }
+            drag.target: rect
+            drag.axis: Drag.XAxis
+            drag.minimumX: 800 - parent.dragLimit
+            drag.maximumX: 800 + parent.dragLimit
+
+            onMouseXChanged: () => {
+//                console.log(rect.x)
+                tableView.setColumnWidth(3, delegateWidth + (rect.x - 800))
+                myHeaders.children[3].width = delegateWidth + (rect.x - 800)
             }
         }
+    }
 
 }

@@ -11,13 +11,15 @@ public:
     explicit MyTableModel(QObject *parent = nullptr);
 
     // Header:
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    Q_INVOKABLE QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+    Q_INVOKABLE void myRemoveRow(int rowIndex);
 
 private:
     QVector< QVector<QString> > m_tableData;
