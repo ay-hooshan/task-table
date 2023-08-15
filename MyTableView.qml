@@ -51,7 +51,7 @@ TableView {
     }
 
     Row {
-        id: columnsHeader
+        id: myHeaders
         y: tableView.contentY - (delegateHeight + spaceBetweenRows)
         z: 2
         spacing: spaceBetweenColumns
@@ -70,4 +70,33 @@ TableView {
             }
         }
     }
+
+        Rectangle {
+            id: rect
+
+            property double dragLimit: delegateWidth
+
+            width: 5; height: delegateHeight
+            z: 3
+            color: "grey"
+//            x: myHeaders.width
+            x: 800 + 2
+            anchors.verticalCenter: myHeaders.verticalCenter
+
+            MouseArea {
+                anchors.fill: parent
+                smooth: true
+                drag.target: rect
+                drag.axis: Drag.XAxis
+                drag.minimumX: 800 - parent.dragLimit
+                drag.maximumX: 800 + parent.dragLimit
+
+                onMouseXChanged: () => {
+//                                     console.log(rect.x)
+                                     tableView.setColumnWidth(3, delegateWidth + (rect.x - 800))
+                                     myHeaders.children[3].width = delegateWidth + (rect.x - 800)
+                                 }
+            }
+        }
+
 }
