@@ -110,7 +110,7 @@ Column {
                         border.width: delegateBorderWidth
 
                         AyText {
-                            text: mymodel.headerData(model.index, Qt.Horizontal)
+                            text: myproxymodel.headerData(model.index, Qt.Horizontal)
                             font.bold: true
                         }
 

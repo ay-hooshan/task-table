@@ -22,6 +22,7 @@ qt_add_qml_module(appMyTable
     QML_FILES AyBtn.qml
     QML_FILES AyLineEdit.qml
     SOURCES myproxymodel.h myproxymodel.cpp
+    RESOURCES todo.txt
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
