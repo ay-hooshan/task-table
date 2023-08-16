@@ -48,3 +48,11 @@ void MyProxyModel::setSearchedWord(const QString &newSearchedWord)
 
     invalidateFilter(); // the most important line :)
 }
+
+bool MyProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
+{
+    QVariant leftData = sourceModel()->data(source_left);
+    QVariant rightData = sourceModel()->data(source_right);
+
+    return leftData.toString() < rightData.toString();
+}

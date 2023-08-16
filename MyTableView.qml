@@ -113,6 +113,14 @@ Column {
                             text: mymodel.headerData(model.index, Qt.Horizontal)
                             font.bold: true
                         }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: () => {
+                                           console.log("header index " + model.index + " clicked!")
+                                           myproxymodel.sort(model.index, Qt.AscendingOrder)
+                                       }
+                        }
                     }
                 }
             }
