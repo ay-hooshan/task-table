@@ -5,9 +5,10 @@ Rectangle {
     radius: 20
     clip: true
 
-    property string textEntered: ""
     property alias textInputed: ayinput.text
     readonly property string password: "12345"
+
+    signal aleTextChanged()
 
     TextInput {
         id: ayinput
@@ -17,6 +18,7 @@ Rectangle {
         anchors.fill: parent
         anchors.leftMargin: 10
         verticalAlignment: Text.AlignVCenter
+        onTextChanged: parent.aleTextChanged()
     }
 
     Keys.onReturnPressed: {

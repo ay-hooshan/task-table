@@ -21,6 +21,11 @@ Column {
         id: myale
         width: tableFrameWidth
         height: delegateHeight
+        onAleTextChanged: () => {
+            console.log(myproxymodel.searchedWord)
+            myproxymodel.searchedWord = textInputed
+            myproxymodel.myFilterEnabled = true
+        }
     }
 
     Rectangle {
@@ -34,7 +39,7 @@ Column {
             anchors.fill: parent
             anchors.topMargin: delegateHeight + spaceBetweenRows
 
-            model: mymodel
+            model: myproxymodel
 
             rowSpacing: spaceBetweenRows
             columnSpacing: spaceBetweenColumns
