@@ -6,6 +6,9 @@ Window {
     height: 800
     visible: true
     title: qsTr("Hello World")
+//    color: 'black'
 
-    MyTableView {}
+//    MyTableView {}
+    Newview {}
+//    ImageRadius {}
 }

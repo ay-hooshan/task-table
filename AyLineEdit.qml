@@ -1,8 +1,8 @@
 import QtQuick 2.0
 
 Rectangle {
-    border.color: "black"
-    radius: 20
+//    border.color: "black"
+//    radius: 20
     clip: true
 
     property alias textInputed: ayinput.text
