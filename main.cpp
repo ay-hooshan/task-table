@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     MyProxyModel myProxyModel;
     myProxyModel.setSourceModel(&myModel);
 
-    engine.rootContext()->setContextProperty("mymodel", &myModel);
+//    engine.rootContext()->setContextProperty("mymodel", &myModel);
     engine.rootContext()->setContextProperty("myproxymodel", &myProxyModel);
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,

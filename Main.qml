@@ -9,6 +9,6 @@ Window {
 //    color: 'black'
 
 //    MyTableView {}
-    Newview {}
+    MyTableView {}
 //    ImageRadius {}
 }

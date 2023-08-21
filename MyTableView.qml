@@ -1,4 +1,4 @@
-import QtQuick 2.15
+import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
@@ -174,6 +174,17 @@ ColumnLayout {
 
             model: myproxymodel
 
+            selectionModel: ItemSelectionModel {
+                id: mySelectionModel
+                model: myproxymodel
+                onCurrentChanged: (cur, prv)=>{
+                                      print("cur: ", cur)
+                                      print("prv:", prv)
+                                  }
+
+                onSelectedIndexesChanged: console.log("'onSelectedIndexesChanged' called!")
+            }
+
             property var columnWidths: [tableFrame.delegateWidth, tableFrame.delegateWidth, tableFrame.delegateWidth, tableFrame.width - 3 * tableFrame.width]
             columnWidthProvider: function (column) { return columnWidths[column] }
 
@@ -203,7 +214,13 @@ ColumnLayout {
                     }
 
                     onClicked: (mouse) => {
+                                   console.log(myproxymodel.rowCount)
                                    console.log("index " + model.index + " clicked!")
+                                   mySelectionModel.setCurrentIndex(myproxymodel.index(index, 0), ItemSelectionModel.Select | ItemSelectionModel.Current)
+                                   console.log("mySelectionModel.selectedIndexes: " + mySelectionModel.selectedIndexes)
+                                   console.log("mySelectionModel.hasSelection:    " + mySelectionModel.hasSelection)
+
+
                                    //                console.log(mouse.button)
                                    if (mouse.button === Qt.RightButton) {
                                        //                    console.log("right click!")
@@ -219,6 +236,7 @@ ColumnLayout {
                                              //                        console.log("delete trigger on index " + model.index)
                                              let rowIndex = model.index % tableView.rows
                                              mymodel.myRemoveRow(rowIndex)
+//                                             mymodel.myRemoveRow(mySelectionModel.currentIndex)
                                          }
                         }
                     }

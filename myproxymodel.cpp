@@ -9,8 +9,8 @@ MyProxyModel::MyProxyModel(QObject *parent)
 
 bool MyProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    qDebug() << "filterAcceptColumn called!";
-qDebug() << "searchedWord is " << m_searchedWord;
+//    qDebug() << "filterAcceptRow called!";
+//    qDebug() << "searchedWord is " << m_searchedWord;
     if (!m_myFilterEnabled)
         return true;
 
@@ -46,8 +46,26 @@ void MyProxyModel::setSearchedWord(const QString &newSearchedWord)
     m_searchedWord = newSearchedWord;
     emit searchedWordChanged();
 
-    invalidateFilter(); // the most important line :)
+    invalidateFilter(); // this line cause to "filterAcceptsRow" called!
 }
+
+void MyProxyModel::removeRowByModelIndex(const QModelIndex &index)
+{
+
+}
+
+//void MyProxyModel::mapToSource(const QModelIndex &proxyIndex) const
+//{
+//    if (!proxyIndex.isValid())
+//        return QModelIndex();
+
+
+//}
+
+//void MyProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
+//{
+
+//}
 
 bool MyProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
 {
