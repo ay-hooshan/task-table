@@ -21,11 +21,7 @@ public:
     QString searchedWord() const;
     void setSearchedWord(const QString &newSearchedWord);
 
-    void removeRowByModelIndex(const QModelIndex &index);
-
-//    void mapToSource(const QModelIndex &proxyIndex) const override;
-
-//    void mapFromSource(const QModelIndex &sourceIndex) const override;
+    Q_INVOKABLE void myRemoveRow(const QModelIndex &index);
 
 signals:
     void myFilterEnabledChanged();

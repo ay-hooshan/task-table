@@ -1,4 +1,5 @@
 #include "myproxymodel.h"
+#include "mytablemodel.h"
 
 MyProxyModel::MyProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
@@ -49,23 +50,13 @@ void MyProxyModel::setSearchedWord(const QString &newSearchedWord)
     invalidateFilter(); // this line cause to "filterAcceptsRow" called!
 }
 
-void MyProxyModel::removeRowByModelIndex(const QModelIndex &index)
+void MyProxyModel::myRemoveRow(const QModelIndex &index)
 {
+//    qDebug() << "myRemoveRow of MyProxyModel called";
 
+    dynamic_cast<MyTableModel*>(sourceModel())->myRemoveRow(mapToSource(index));
 }
 
-//void MyProxyModel::mapToSource(const QModelIndex &proxyIndex) const
-//{
-//    if (!proxyIndex.isValid())
-//        return QModelIndex();
-
-
-//}
-
-//void MyProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
-//{
-
-//}
 
 bool MyProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
 {

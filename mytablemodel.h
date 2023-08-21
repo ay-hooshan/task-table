@@ -19,7 +19,7 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    Q_INVOKABLE void myRemoveRow(int rowIndex);
+    Q_INVOKABLE void myRemoveRow(QModelIndex index);
 
 private:
     QVector< QVector<QString> > m_tableData;

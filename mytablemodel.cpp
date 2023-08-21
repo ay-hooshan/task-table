@@ -80,9 +80,9 @@ QVariant MyTableModel::data(const QModelIndex &index, int role) const
     return QVariant("Default Data");
 }
 
-void MyTableModel::myRemoveRow(int rowIndex)
+void MyTableModel::myRemoveRow(QModelIndex index)
 {
-    beginRemoveRows(QModelIndex(), rowIndex, rowIndex);
-    m_tableData.removeAt(rowIndex);
+    beginRemoveRows(QModelIndex(), index.row(), index.row());
+    m_tableData.removeAt(index.row());
     endRemoveRows();
 }

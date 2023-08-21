@@ -214,7 +214,7 @@ ColumnLayout {
                     }
 
                     onClicked: (mouse) => {
-                                   console.log(myproxymodel.rowCount)
+                                   console.log(myproxymodel.rowCount())
                                    console.log("index " + model.index + " clicked!")
                                    mySelectionModel.setCurrentIndex(myproxymodel.index(index, 0), ItemSelectionModel.Select | ItemSelectionModel.Current)
                                    console.log("mySelectionModel.selectedIndexes: " + mySelectionModel.selectedIndexes)
@@ -234,9 +234,9 @@ ColumnLayout {
                             text: "Delete"
                             onTriggered: () => {
                                              //                        console.log("delete trigger on index " + model.index)
-                                             let rowIndex = model.index % tableView.rows
-                                             mymodel.myRemoveRow(rowIndex)
-//                                             mymodel.myRemoveRow(mySelectionModel.currentIndex)
+//                                             let rowIndex = model.index % tableView.rows
+//                                             mymodel.myRemoveRow(rowIndex)
+                                             myproxymodel.myRemoveRow(mySelectionModel.currentIndex)
                                          }
                         }
                     }
