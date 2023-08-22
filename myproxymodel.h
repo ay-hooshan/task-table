@@ -8,7 +8,7 @@ class MyProxyModel: public QSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(bool myFilterEnabled READ myFilterEnabled WRITE setMyFilterEnabled NOTIFY myFilterEnabledChanged FINAL)
-    Q_PROPERTY(QString searchedWord READ searchedWord WRITE setSearchedWord NOTIFY searchedWordChanged FINAL)
+    Q_PROPERTY(QString searchedID READ searchedID WRITE setSearchedID NOTIFY searchedIDChanged FINAL)
 
 public:
     explicit MyProxyModel(QObject *parent = nullptr);
@@ -18,19 +18,19 @@ public:
     bool myFilterEnabled() const;
     void setMyFilterEnabled(bool newMyFilterEnabled);
 
-    QString searchedWord() const;
-    void setSearchedWord(const QString &newSearchedWord);
+    QString searchedID() const;
+    void setSearchedID(const QString &newSearchedID);
 
     Q_INVOKABLE void myRemoveRow(const QModelIndex &index);
 
 signals:
     void myFilterEnabledChanged();
 
-    void searchedWordChanged();
+    void searchedIDChanged();
 
 private:
     bool m_myFilterEnabled;
-    QString m_searchedWord;
+    QString m_searchedID;
 
     // QSortFilterProxyModel interface
 protected:

@@ -11,7 +11,6 @@ MyProxyModel::MyProxyModel(QObject *parent)
 bool MyProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
 //    qDebug() << "filterAcceptRow called!";
-//    qDebug() << "searchedWord is " << m_searchedWord;
     if (!m_myFilterEnabled)
         return true;
 
@@ -19,7 +18,7 @@ bool MyProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_pa
 
     const QString name = sourceModel()->data(index).toString();
 
-    return (name.contains(m_searchedWord));
+    return (name.contains(m_searchedID));
 }
 
 bool MyProxyModel::myFilterEnabled() const
@@ -35,17 +34,17 @@ void MyProxyModel::setMyFilterEnabled(bool newMyFilterEnabled)
     emit myFilterEnabledChanged();
 }
 
-QString MyProxyModel::searchedWord() const
+QString MyProxyModel::searchedID() const
 {
-    return m_searchedWord;
+    return m_searchedID;
 }
 
-void MyProxyModel::setSearchedWord(const QString &newSearchedWord)
+void MyProxyModel::setSearchedID(const QString &newSearchedID)
 {
-    if (m_searchedWord == newSearchedWord)
+    if (m_searchedID == newSearchedID)
         return;
-    m_searchedWord = newSearchedWord;
-    emit searchedWordChanged();
+    m_searchedID = newSearchedID;
+    emit searchedIDChanged();
 
     invalidateFilter(); // this line cause to "filterAcceptsRow" called!
 }

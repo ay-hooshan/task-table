@@ -75,9 +75,22 @@ ColumnLayout {
                         anchors.leftMargin: 10
                         verticalAlignment: Text.AlignVCenter
                         onTextChanged: () => {
-                            console.log(myproxymodel.searchedWord)
-                            myproxymodel.searchedWord = text
-                            myproxymodel.myFilterEnabled = true
+//                            console.log(myproxymodel.searchedID)
+                                           if (myCombo.currentIndex === 0) {
+                                               myproxymodel.searchedID = text
+                                           } else if (myCombo.currentIndex === 1) {
+                                               myproxymodel.searchedID = text
+                                           } else if (myCombo.currentIndex === 2) {
+                                                myproxymodel.searchedID = text
+                                           } else if (myCombo.currentIndex === 3) {
+                                                myproxymodel.searchedID = text
+                                           } else {
+                                               console.log("Errrrrrrrrorrrrrrr!!!!!!!!")
+                                           }
+
+
+
+
                         }
                     }
                 }
@@ -168,6 +181,22 @@ ColumnLayout {
 
             clip: true
 
+            selectionBehavior: TableView.SelectRows
+
+            function getRow(delegateIndex) {
+                return delegateIndex % tableView.rows
+            }
+
+            function myIsRowSelected(delegateIndex) {
+                for (let i = 0; i < mySelectionModel.selectedIndexes.length; i++) {
+//                    console.log(i + ", " + mySelectionModel.selectedIndexes[i].row + ", " + getRow(delegateIndex))
+                    if (mySelectionModel.selectedIndexes[i].row === getRow(delegateIndex)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             anchors.fill: parent
             anchors.margins: 2
             anchors.topMargin: tableFrame.delegateHeight + tableFrame.spaceBetweenRows
@@ -182,7 +211,7 @@ ColumnLayout {
                                       print("prv:", prv)
                                   }
 
-                onSelectedIndexesChanged: console.log("'onSelectedIndexesChanged' called!")
+//                onSelectedIndexesChanged: console.log("'onSelectedIndexesChanged' called!")
             }
 
             property var columnWidths: [tableFrame.delegateWidth, tableFrame.delegateWidth, tableFrame.delegateWidth, tableFrame.width - 3 * tableFrame.width]
@@ -193,11 +222,19 @@ ColumnLayout {
 
                 implicitWidth: tableFrame.width
                 implicitHeight: tableFrame.delegateHeight
-
-                color: stylus.hovered ? "grey" : (model.index % tableView.rows) % 2 == 0 ? "#F0F0F6" : "white"
+                color: tableView.myIsRowSelected(index) ? "grey" : tableView.getRow(index) % 2 == 0 ? "lightblue": "white"
 
                 HoverHandler {
                     id: stylus
+                    onHoveredChanged: () => {
+                                          if (hovered)
+                                            mySelectionModel.select(myproxymodel.index(tableView.getRow(index), 0), ItemSelectionModel.Select | ItemSelectionModel.Rows)
+                                          else
+                                            mySelectionModel.select(myproxymodel.index(tableView.getRow(index), 0), ItemSelectionModel.Deselect | ItemSelectionModel.Rows)
+//                                          console.log(hovered)
+//                                          console.log(mySelectionModel.selectedIndexes)
+//                                          mySelectionModel.select(myproxymodel.index(index, i), ItemSelectionModel.Select | ItemSelectionModel.Current)
+                                      }
                 }
 
                 MouseArea {
@@ -214,12 +251,12 @@ ColumnLayout {
                     }
 
                     onClicked: (mouse) => {
-                                   console.log(myproxymodel.rowCount())
-                                   console.log("index " + model.index + " clicked!")
-                                   mySelectionModel.setCurrentIndex(myproxymodel.index(index, 0), ItemSelectionModel.Select | ItemSelectionModel.Current)
-                                   console.log("mySelectionModel.selectedIndexes: " + mySelectionModel.selectedIndexes)
-                                   console.log("mySelectionModel.hasSelection:    " + mySelectionModel.hasSelection)
+//                                   console.log(myproxymodel.rowCount())
+//                                   console.log("index " + model.index + " clicked!")
+                                   mySelectionModel.setCurrentIndex(myproxymodel.index(tableView.getRow(index), 0), ItemSelectionModel.Select | ItemSelectionModel.Current)
+//                                   console.log(tableView.myIsRowSelected(index))
 
+//                                   console.log("mySelectionModel.selectedIndexes: " + mySelectionModel.selectedIndexes)
 
                                    //                console.log(mouse.button)
                                    if (mouse.button === Qt.RightButton) {
