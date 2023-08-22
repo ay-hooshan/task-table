@@ -40,6 +40,14 @@ ColumnLayout {
                     font.family: "Roboto"
                     font.pixelSize: 20
                 }
+
+                onCurrentIndexChanged: () => {
+                                           console.log(currentIndex)
+                                           myproxymodel.searchedID = ""
+                                           myproxymodel.searchedName = ""
+                                           myproxymodel.searchedFamily = ""
+                                           myproxymodel.searchedAddress = ""
+                                       }
             }
 
             Rectangle {
@@ -75,22 +83,18 @@ ColumnLayout {
                         anchors.leftMargin: 10
                         verticalAlignment: Text.AlignVCenter
                         onTextChanged: () => {
-//                            console.log(myproxymodel.searchedID)
+
                                            if (myCombo.currentIndex === 0) {
                                                myproxymodel.searchedID = text
                                            } else if (myCombo.currentIndex === 1) {
-                                               myproxymodel.searchedID = text
+                                               myproxymodel.searchedName = text
                                            } else if (myCombo.currentIndex === 2) {
-                                                myproxymodel.searchedID = text
+                                                myproxymodel.searchedFamily = text
                                            } else if (myCombo.currentIndex === 3) {
-                                                myproxymodel.searchedID = text
+                                                myproxymodel.searchedAddress = text
                                            } else {
                                                console.log("Errrrrrrrrorrrrrrr!!!!!!!!")
                                            }
-
-
-
-
                         }
                     }
                 }
@@ -254,7 +258,6 @@ ColumnLayout {
 //                                   console.log(myproxymodel.rowCount())
 //                                   console.log("index " + model.index + " clicked!")
                                    mySelectionModel.setCurrentIndex(myproxymodel.index(tableView.getRow(index), 0), ItemSelectionModel.Select | ItemSelectionModel.Current)
-//                                   console.log(tableView.myIsRowSelected(index))
 
 //                                   console.log("mySelectionModel.selectedIndexes: " + mySelectionModel.selectedIndexes)
 

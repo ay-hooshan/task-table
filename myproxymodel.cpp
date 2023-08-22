@@ -14,11 +14,17 @@ bool MyProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_pa
     if (!m_myFilterEnabled)
         return true;
 
-    const QModelIndex index = sourceModel()->index(source_row, 1, source_parent);
+    const QModelIndex indexID = sourceModel()->index(source_row, 0, source_parent);
+    const QModelIndex indexName = sourceModel()->index(source_row, 1, source_parent);
+    const QModelIndex indexFamily = sourceModel()->index(source_row, 2, source_parent);
+    const QModelIndex indexAddress = sourceModel()->index(source_row, 3, source_parent);
 
-    const QString name = sourceModel()->data(index).toString();
+    const QString sourceID = sourceModel()->data(indexID).toString();
+    const QString sourceName = sourceModel()->data(indexName).toString();
+    const QString sourceFamily = sourceModel()->data(indexFamily).toString();
+    const QString sourceAddress = sourceModel()->data(indexAddress).toString();
 
-    return (name.contains(m_searchedID));
+    return (sourceID.contains(m_searchedID) and sourceName.contains(m_searchedName) and sourceFamily.contains(m_searchedFamily) and sourceAddress.contains(m_searchedAddress));
 }
 
 bool MyProxyModel::myFilterEnabled() const
@@ -63,4 +69,48 @@ bool MyProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &s
     QVariant rightData = sourceModel()->data(source_right);
 
     return leftData.toString() < rightData.toString();
+}
+
+QString MyProxyModel::searchedName() const
+{
+    return m_searchedName;
+}
+
+void MyProxyModel::setSearchedName(const QString &newSearchedName)
+{
+    if (m_searchedName == newSearchedName)
+        return;
+    m_searchedName = newSearchedName;
+    emit searchedNameChanged();
+
+    invalidateFilter(); // this line cause to "filterAcceptsRow" called!
+}
+
+QString MyProxyModel::searchedFamily() const
+{
+    return m_searchedFamily;
+}
+
+void MyProxyModel::setSearchedFamily(const QString &newSearchedFamily)
+{
+    if (m_searchedFamily == newSearchedFamily)
+        return;
+    m_searchedFamily = newSearchedFamily;
+    emit searchedFamilyChanged();
+
+    invalidateFilter(); // this line cause to "filterAcceptsRow" called!
+}
+
+QString MyProxyModel::searchedAddress() const
+{
+    return m_searchedAddress;
+}
+
+void MyProxyModel::setSearchedAddress(const QString &newSearchedAddress)
+{
+    if (m_searchedAddress == newSearchedAddress)
+        return;
+    m_searchedAddress = newSearchedAddress;
+    emit searchedAddressChanged();
+    invalidateFilter(); // this line cause to "filterAcceptsRow" called!
 }
