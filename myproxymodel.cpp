@@ -19,12 +19,12 @@ bool MyProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_pa
     const QModelIndex indexFamily = sourceModel()->index(source_row, 2, source_parent);
     const QModelIndex indexAddress = sourceModel()->index(source_row, 3, source_parent);
 
-    const QString sourceID = sourceModel()->data(indexID).toString();
-    const QString sourceName = sourceModel()->data(indexName).toString();
-    const QString sourceFamily = sourceModel()->data(indexFamily).toString();
-    const QString sourceAddress = sourceModel()->data(indexAddress).toString();
+    const QString sourceID = sourceModel()->data(indexID).toString().toLower();
+    const QString sourceName = sourceModel()->data(indexName).toString().toLower();
+    const QString sourceFamily = sourceModel()->data(indexFamily).toString().toLower();
+    const QString sourceAddress = sourceModel()->data(indexAddress).toString().toLower();
 
-    return (sourceID.contains(m_searchedID) and sourceName.contains(m_searchedName) and sourceFamily.contains(m_searchedFamily) and sourceAddress.contains(m_searchedAddress));
+    return (sourceID.contains(m_searchedID.toLower()) and sourceName.contains(m_searchedName.toLower()) and sourceFamily.contains(m_searchedFamily.toLower()) and sourceAddress.contains(m_searchedAddress.toLower()));
 }
 
 bool MyProxyModel::myFilterEnabled() const
